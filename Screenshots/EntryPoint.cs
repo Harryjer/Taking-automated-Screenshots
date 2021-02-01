@@ -11,11 +11,14 @@ namespace Screenshots
         {
             IWebDriver chrome = new ChromeDriver();
 
+            string screenshotDirectory = Directory.GetCurrentDirectory() + @"\screenshots";
             chrome.Navigate().GoToUrl("https://www.google.com/");
 
             Screenshot googleScreenshot = ((ITakesScreenshot)chrome).GetScreenshot();
-
-            Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\screenshots");
+            if (Directory.Exists(screenshotDirectory))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\screenshots");
+            }
             googleScreenshot.SaveAsFile(Directory.GetCurrentDirectory() + @"\screenshots\googlescreenshots.png", ScreenshotImageFormat.Png);
 
             chrome.Quit();
